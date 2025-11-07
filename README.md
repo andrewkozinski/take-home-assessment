@@ -1,0 +1,1 @@
+This project is broken down into two directories, backend and frontend respectively. The backend directory contains the logic for the Go based API while the frontend contains the NextJS React based UI. 
