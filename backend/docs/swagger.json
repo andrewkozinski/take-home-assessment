@@ -1,0 +1,114 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/movie/{id}": {
+            "get": {
+                "description": "Fetch detailed information for a movie by its TMDB ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get movie details",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Movie ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Movie"
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to fetch movie details",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/trending/movie/{day_or_week}": {
+            "get": {
+                "description": "Fetch trending movies for a specified timeframe (\"day\" or \"week\")",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get trending movies",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Timeframe (day or week)",
+                        "name": "day_or_week",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Movie"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to fetch trending movies",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.Movie": {
+            "type": "object",
+            "properties": {
+                "genres": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "overview": {
+                    "type": "string"
+                },
+                "poster_path": {
+                    "type": "string"
+                },
+                "release_date": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

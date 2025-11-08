@@ -2,6 +2,7 @@ The backend was built using Go. The backend directory structure was loosely base
 
 - cmd/: This directory contains the main.go file which is the entry point for the application.
   - movieapi/: Contains the main.go file to start the API.
+- docs/: This directory contains the Swagger API documentation files.
 - internal/: This directory contains the bulk of the application logic. It includes the following subdirectories:
   - api/: Contains the API handlers and routing logic.
     - model/: Contains the movie data model
@@ -12,3 +13,4 @@ The backend was built using Go. The backend directory structure was loosely base
 ### The backend makes use of the following third party libraries:
 - Chi for API routing. Chosen for its more expressive routing. 
 - joho/godotenv for loading environment variables from a .env file.
+- swaggo/http-swagger for generating Swagger API documentation. To generate the docs, run `swag init -g ./cmd/movieapi/main.go -o ./docs` from the backend directory.
