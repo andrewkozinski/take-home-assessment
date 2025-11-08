@@ -10,14 +10,10 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	chimiddle "github.com/go-chi/chi/v5/middleware"
 )
 
 // MovieHandler Handles getting the information for each route. So getting trending movies & movie information
 func MovieHandler(router *chi.Mux, client *tmdb.TMDBClient) {
-
-	//Following allows trailing slashes to be accepted for routes and not throw a 404
-	router.Use(chimiddle.StripSlashes)
 
 	//Caches for movies and trending movies can be added here in the future
 	movieCache := cache.NewCache[string, model.Movie]()

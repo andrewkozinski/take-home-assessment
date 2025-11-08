@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/go-chi/chi/v5"
+	chimiddle "github.com/go-chi/chi/v5/middleware"
 	"github.com/joho/godotenv"
 )
 
@@ -21,6 +22,8 @@ func main() {
 	apiKey := os.Getenv("TMDB_KEY")
 
 	router := chi.NewRouter()
+	router.Use(chimiddle.StripSlashes) //allows trailing slashes to be accepted for routes and not throw a 404
+	router.Use(chimiddle.Logger)       //Log each request to the console
 
 	client := tmdb.NewTMDBClient(apiKey) //Create TMDB client that will be used to make HTTP requests
 
