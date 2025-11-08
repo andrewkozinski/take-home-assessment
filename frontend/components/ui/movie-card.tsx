@@ -1,7 +1,7 @@
 import { Movie } from "@/types/movie";
 import Image from "next/image";
 
-export function MovieCard(movie: Movie) {
+export function MovieCard({ movie }: { movie: Movie }) {
 
     return (
         <div
