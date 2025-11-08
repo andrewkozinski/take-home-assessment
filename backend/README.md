@@ -13,4 +13,4 @@ The backend was built using Go. The backend directory structure was loosely base
 ### The backend makes use of the following third party libraries:
 - Chi for API routing. Chosen for its more expressive routing. 
 - joho/godotenv for loading environment variables from a .env file.
-- swaggo/http-swagger for generating Swagger API documentation.
+- swaggo/http-swagger for generating Swagger API documentation. To generate the docs, run `swag init -g ./cmd/movieapi/main.go -o ./docs` from the backend directory.
