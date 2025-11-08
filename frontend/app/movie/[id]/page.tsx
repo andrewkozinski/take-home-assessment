@@ -12,15 +12,24 @@ export default function MoviePage() {
 
     //Fetch movie data from nextjs api route
     const [movie, setMovie] = useState<Movie | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         async function fetchMovie() {
-            console.log("Fetching movie with ID: ", id);
-            const data = await fetchMovieDetails(id?.toString() || "");
-            setMovie(data);
+            try {
+                console.log("Fetching movie with ID: ", id);
+                const data = await fetchMovieDetails(id?.toString() || "");
+                setMovie(data);
+            } catch (err) {
+                setError((err as Error).message);
+            }
         }
         fetchMovie();
     }, [id]);
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     if (!movie) {
         return <div>Loading...</div>;
