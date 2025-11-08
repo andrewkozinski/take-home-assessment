@@ -7,4 +7,7 @@ type Movie struct {
 	Overview    string `json:"overview"`
 	PosterPath  string `json:"poster_path"`
 	ReleaseDate string `json:"release_date"`
+	Genres      []struct {
+		Name string `json:"name"`
+	} `json:"genres"`
 }
