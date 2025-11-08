@@ -11,6 +11,13 @@ type Movie struct {
 		Name string `json:"name"`
 		Id   int    `json:"id"`
 	} `json:"genres"`
+	ProductionCompanies []struct {
+		Name     string `json:"name"`
+		Id       int    `json:"id"`
+		LogoPath string `json:"logo_path"`
+	} `json:"production_companies"`
+	Runtime    int     `json:"runtime"`
+	Popularity float64 `json:"popularity"`
 }
 
 // MovieResponse struct for storing movie caches and their http status
