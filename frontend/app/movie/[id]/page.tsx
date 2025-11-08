@@ -3,6 +3,7 @@
 import { useParams } from "next/dist/client/components/navigation";
 import { Movie } from "@/types/movie";
 import { useEffect, useState } from "react";
+import { Badge } from "@/components/ui/badge"
 
 export default function MoviePage() {
     //Get the movie ID from the URL params
@@ -34,7 +35,11 @@ export default function MoviePage() {
                     <p className="mt-4">{movie.overview}</p>
                     <p className="mt-4">Release Date: {movie.release_date}</p>
                     <div className="mt-4">
-                        Genres: {movie.genres.map((genre) => genre.name).join(", ")}
+                        Genres: {
+                            movie.genres.map((genre) => (
+                                <Badge key={genre.name} className="mr-2">{genre.name}</Badge>
+                            ))
+                        }
                     </div>
                 </div>
             </main>
