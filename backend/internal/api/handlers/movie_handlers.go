@@ -23,12 +23,25 @@ func MovieHandler(router *chi.Mux) {
 	each movie to prepend the base URL.
 	*/
 
+	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		_, err := fmt.Fprintf(w, "Movie API Base Route")
+		if err != nil {
+			return
+		}
+	})
+
 	router.Get("/movie/{id}", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Movie API Response for id: "+chi.URLParam(r, "id"))
+		_, err := fmt.Fprintf(w, "Movie API Response for id: "+chi.URLParam(r, "id"))
+		if err != nil {
+			return
+		}
 	})
 
 	router.Get("/trending/movie/{day_or_week}", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Trending Movie API Response for day-or-week: "+chi.URLParam(r, "day_or_week"))
+		_, err := fmt.Fprintf(w, "Trending Movie API Response for day-or-week: "+chi.URLParam(r, "day_or_week"))
+		if err != nil {
+			return
+		}
 	})
 
 }
