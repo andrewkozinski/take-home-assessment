@@ -10,6 +10,7 @@ import { Toggle } from "@/components/ui/toggle";
 import { addFavoriteMovie, removeFavoriteMovie, isMovieFavorited } from "@/lib/favorites";
 import { StarIcon } from "lucide-react";
 import { ApiError } from "@/types/error-message";
+import Image from "next/image";
 
 export default function MoviePage() {
     //Get the movie ID from the URL params
@@ -65,36 +66,53 @@ export default function MoviePage() {
         <div className="">
             <Navbar />
             <main className="">
-                <div className="m-auto">
-                    <p>Movie Page</p>
-                    <h1 className="text-3xl font-bold">{movie.title}</h1>
-                    <p className="mt-4">{movie.overview}</p>
-                    <p className="mt-4">Release Date: {movie.release_date}</p>
-                    <div className="mt-4">
-                        Genres: {
-                            movie.genres?.map((genre) => (
-                                <Badge key={genre.name} className="mr-2">{genre.name}</Badge>
-                            ))
-                        }
+                <div className="m-8 space-y-4 flex flex-col lg:flex-row lg:space-x-8 lg:space-y-0">
+                    
+                    {/* Image left side */}
+                    <div>
+                        <Image
+                            width={300}
+                            height={450}
+                            src={`${movie.poster_path}`}
+                            alt={movie.title}
+                            className="rounded-lg"
+                        />
                     </div>
-                    <Toggle 
-                        aria-label="Toggle bookmark"
-                        size="sm"
-                        variant="outline"
-                        className="data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-blue-500 data-[state=on]:*:[svg]:stroke-blue-500"
-                        pressed={isFavorited}
-                        onPressedChange={(pressed) => {
-                            if (pressed) {
-                                addFavoriteMovie(movie.id);
-                            } else {
-                                removeFavoriteMovie(movie.id);
+                    {/* Movie details right side */}
+                    <div>
+                        <h1 className="text-3xl font-bold">{movie.title}</h1>
+                        <p className="mt-4">Release Date: {movie.release_date}</p>
+                        <p className="mt-4">{movie.overview}</p>
+
+
+                        <div className="mt-4">
+                            <p>Genres: </p> 
+                            {
+                                movie.genres?.map((genre) => (
+                                    <Badge key={genre.name} className="mr-2">{genre.name}</Badge>
+                                ))
                             }
-                            setIsFavorited(pressed);
-                        }}
-                    >
-                        <StarIcon className="mr-2" />
-                        Favorite
-                    </Toggle>
+                        </div>
+
+                        <Toggle
+                            aria-label="Toggle bookmark"
+                            size="sm"
+                            variant="outline"
+                            className="mt-4 data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-blue-500 data-[state=on]:*:[svg]:stroke-blue-500"
+                            pressed={isFavorited}
+                            onPressedChange={(pressed) => {
+                                if (pressed) {
+                                    addFavoriteMovie(movie.id);
+                                } else {
+                                    removeFavoriteMovie(movie.id);
+                                }
+                                setIsFavorited(pressed);
+                            }}
+                        >
+                            <StarIcon className="mr-2" />
+                            Favorite
+                        </Toggle>
+                    </div>
                 </div>
             </main>
         </div>
