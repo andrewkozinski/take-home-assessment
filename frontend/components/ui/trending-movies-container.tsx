@@ -14,15 +14,25 @@ export default function TrendingMoviesContainer() {
 
     return (
         <div>
-            <label className="mr-2">Day</label>
-            <Switch
-                checked={timeFrame === TimeFrame.WEEK}
-                onCheckedChange={(checked) => {
-                    setTimeFrame(checked ? TimeFrame.WEEK : TimeFrame.DAY);
-                }}
-            />
-            <label className="ml-2">Week</label>
-            <TrendingMoviesList timeFrame={timeFrame} />
+
+            {/* Div containing all the trending movie logic */}
+            <div className="flex flex-col items-center space-y-4">
+                <div className="max-w-4xl mx-auto"> {/*Limit width */}
+                    <TrendingMoviesList timeFrame={timeFrame} />
+                </div>
+                <div className="flex items-center">
+                    <label className="mr-2">Day</label>
+                    <Switch
+                        checked={timeFrame === TimeFrame.WEEK}
+                        onCheckedChange={(checked) => {
+                            setTimeFrame(checked ? TimeFrame.WEEK : TimeFrame.DAY);
+                        }}
+                    />
+                    <label className="ml-2">Week</label>
+                </div>
+                
+            </div>
+            
         </div>
     );
 }
