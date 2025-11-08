@@ -31,20 +31,22 @@ func NewTMDBClient(apiKey string) *TMDBClient {
 
 // GetTrendingMovies fetches trending movies for a given time window (day or week) (docs: https://developer.themoviedb.org/reference/trending-movies)
 func (client *TMDBClient) GetTrendingMovies(time string) (*http.Response, error) {
-	url := fmt.Sprintf("%s/trending/movie/%s?api_key=%s", baseURL, time, client.APIKey)
+	url := fmt.Sprintf("%s/trending/movie/%s", baseURL, time)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", client.APIKey))
 	return client.HTTPClient.Do(req)
 }
 
 // GetMovieDetails fetches details for a specific movie by its ID
 func (client *TMDBClient) GetMovieDetails(movieID string) (*http.Response, error) {
-	url := fmt.Sprintf("%s/movie/%s?api_key=%s", baseURL, movieID, client.APIKey)
+	url := fmt.Sprintf("%s/movie/%s", baseURL, movieID)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", client.APIKey))
 	return client.HTTPClient.Do(req)
 }
