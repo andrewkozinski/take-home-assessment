@@ -31,3 +31,12 @@ export function addFavoriteMovie(movieId: string): void {
         localStorage.setItem('favoriteMovies', JSON.stringify(favorites));
     }
 }
+
+export function removeFavoriteMovie(movieId: string): void {
+    const favorites = getFavoriteMovies();
+    const index = favorites.indexOf(movieId);
+    if (index !== -1) {
+        favorites.splice(index, 1);//remove the movie from favorites, starting at index "index", remove 1 item
+        localStorage.setItem('favoriteMovies', JSON.stringify(favorites));
+    }
+}
