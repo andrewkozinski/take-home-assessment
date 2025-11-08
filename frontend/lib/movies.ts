@@ -4,6 +4,15 @@ export enum TimeFrame {
 }
 
 /**
+ * Helper function to throw error given response and data
+ * @param response - The fetched response
+ * @param data - JSON response
+ */
+function throwError(response: Response, data: any) {
+    throw new Error(data.error ? `Failed to fetch movie details. With Status: ${response.status}. Error Message: ${data.error}` : 'Failed to fetch movie details');
+}
+
+/**
  * Helper function to fetch trending movies
  * @param period - TimeFrame.DAY or TimeFrame.WEEK
  * @returns A promise that resolves to the list of trending movies
@@ -13,7 +22,7 @@ export async function fetchTrendingMovies(period: TimeFrame) {
     const data = await response.json();
 
     if(!response.ok) {
-        throw new Error(data.error ? `Failed to fetch trending movies. With Status: ${response.status}. Error Message: ${data.error}` : 'Failed to fetch trending movies');
+        throwError(response, data);
     }
 
     return data;
@@ -29,7 +38,7 @@ export async function fetchMovieDetails(id: string) {
     const data = await response.json();
 
     if(!response.ok) {
-        throw new Error(data.error || 'Failed to fetch movie details');
+        throwError(response, data);
     }
 
     return data;
