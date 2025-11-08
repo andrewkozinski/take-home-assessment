@@ -1,4 +1,5 @@
 import { Movie } from "@/types/movie";
+import { setCache, getCache } from "./cache";
 
 export enum TimeFrame {
     DAY = "day",
@@ -20,12 +21,25 @@ function throwError(response: Response, data: any) {
  * @returns A promise that resolves to the list of trending movies
  */
 export async function fetchTrendingMovies(period: TimeFrame) {
+
+    //Before making any requests, check cache
+    const cacheKey = `trending-movies-${period}`;
+    const cachedData = getCache(cacheKey);
+
+    if (cachedData) {
+        console.log("Returning cached data for trending movies: ", period);
+        return cachedData;
+    }
+
     const response = await fetch(`/api/trending/movie/${period}`);
     const data = await response.json();
 
     if(!response.ok) {
         throwError(response, data);
     }
+
+    //Set cache for 10 minutes
+    setCache(cacheKey, data, 10 * 60 * 1000); //10 minutes in milliseconds
 
     return data;
 }
@@ -36,12 +50,25 @@ export async function fetchTrendingMovies(period: TimeFrame) {
  * @returns Details of the movie
  */
 export async function fetchMovieDetails(id: string) {
+
+    //Before making any requests, check cache
+    const cacheKey = `movie-details-${id}`;
+    const cachedData = getCache(cacheKey);
+
+    if (cachedData) {
+        console.log("Returning cached data for movie ID: ", id);
+        return cachedData;
+    }
+
     const response = await fetch(`/api/movies/${id}`);
     const data = await response.json();
 
     if(!response.ok) {
         throwError(response, data);
     }
+
+    //Set cache for 10 minutes
+    setCache(cacheKey, data, 10 * 60 * 1000); //10 minutes in milliseconds
 
     return data;
 }
