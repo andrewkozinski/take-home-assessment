@@ -22,11 +22,7 @@ func main() {
 
 	router := chi.NewRouter()
 
-	//router.Get("/", func(w http.ResponseWriter, r *http.Request) {
-	//	fmt.Fprintf(w, "Movie API Response")
-	//})
-
-	client := tmdb.NewTMDBClient(apiKey)
+	client := tmdb.NewTMDBClient(apiKey) //Create TMDB client that will be used to make HTTP requests
 
 	handlers.MovieHandler(router, client)
 
