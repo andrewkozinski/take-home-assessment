@@ -39,8 +39,8 @@ export default function TrendingMoviesList({ timeFrame }: { timeFrame: TimeFrame
     if(error) {
         return (
             <div className="justify-center items-center flex flex-col">
+                <p>Error: {error}</p>
                 <p className="text-red-1000">Error loading trending movies. Please try again later.</p>
-                <p>Error Message: {error}</p>
             </div>
 
         )
