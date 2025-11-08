@@ -4,6 +4,8 @@ definitions:
       genres:
         items:
           properties:
+            id:
+              type: integer
             name:
               type: string
           type: object
@@ -49,7 +51,10 @@ paths:
     get:
       description: Fetch trending movies for a specified timeframe ("day" or "week")
       parameters:
-      - description: Timeframe (day or week)
+      - description: Timeframe
+        enum:
+        - day
+        - week
         in: path
         name: day_or_week
         required: true

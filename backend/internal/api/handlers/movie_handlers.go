@@ -113,7 +113,7 @@ func GetMovieDetails(movieCache *cache.Cache[string, model.MovieResponse], clien
 // @Description Fetch trending movies for a specified timeframe ("day" or "week")
 // @Tags Movies
 // @Produce json
-// @Param day_or_week path string true "Timeframe (day or week)"
+// @Param day_or_week path string true "Timeframe" Enums(day, week)
 // @Success 200 {array} model.Movie
 // @Failure 500 {string} string "Failed to fetch trending movies"
 // @Router /trending/movie/{day_or_week} [get]
