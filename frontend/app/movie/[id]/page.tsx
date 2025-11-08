@@ -28,7 +28,12 @@ export default function MoviePage() {
     }, [id]);
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return (
+            <div className="justify-center items-center flex flex-col">
+                <p>Error: {error}</p>
+                <p className="text-red-400">Error loading movie details. Please try again later.</p>
+            </div>
+        );
     }
 
     if (!movie) {
