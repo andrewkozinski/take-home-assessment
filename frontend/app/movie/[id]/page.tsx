@@ -36,7 +36,7 @@ export default function MoviePage() {
                     <p className="mt-4">Release Date: {movie.release_date}</p>
                     <div className="mt-4">
                         Genres: {
-                            movie.genres.map((genre) => (
+                            movie.genres?.map((genre) => (
                                 <Badge key={genre.name} className="mr-2">{genre.name}</Badge>
                             ))
                         }
