@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"net/http"
 
-	//"net/http"
 	"github.com/go-chi/chi/v5"
 	chimiddle "github.com/go-chi/chi/v5/middleware"
 )
@@ -26,6 +25,7 @@ func MovieHandler(router *chi.Mux, client *tmdb.TMDBClient) {
 	each movie to prepend the base URL.
 	*/
 
+	//Base route to check if API is working
 	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		_, err := fmt.Fprintf(w, "Movie API Base Route")
 		if err != nil {
@@ -33,6 +33,7 @@ func MovieHandler(router *chi.Mux, client *tmdb.TMDBClient) {
 		}
 	})
 
+	//Route to get movie details by ID
 	router.Route("/movie", func(r chi.Router) {
 		r.Get("/{id}", func(w http.ResponseWriter, r *http.Request) {
 
@@ -64,12 +65,41 @@ func MovieHandler(router *chi.Mux, client *tmdb.TMDBClient) {
 		})
 	})
 
+	//Route to get trending movies
 	router.Route("/trending/movie", func(r chi.Router) {
 		r.Get("/{day_or_week}", func(w http.ResponseWriter, r *http.Request) {
-			_, err := fmt.Fprintf(w, "Trending Movie API Response for day-or-week: "+chi.URLParam(r, "day_or_week"))
-			if err != nil {
+
+			timeFrame := chi.URLParam(r, "day_or_week") //get the day or week param
+
+			resp, respErr := client.GetTrendingMovies(timeFrame) //fetch trending movies from TMDB
+			if respErr != nil {
+				http.Error(w, "Failed to fetch trending movies", http.StatusInternalServerError)
 				return
 			}
+
+			//Once done with the response body, close it
+			defer resp.Body.Close()
+
+			//Map results array in the response to a Slice of Movie structs
+			var result struct {
+				Results []model.Movie `json:"results"`
+			}
+
+			jsonErr := json.NewDecoder(resp.Body).Decode(&result)
+			if jsonErr != nil {
+				http.Error(w, "Failed to decode trending movies", http.StatusInternalServerError)
+				return
+			}
+
+			//Before sending the response, properly format the PosterPath for each movie
+			for i := range result.Results {
+				result.Results[i].PosterPath = "https://image.tmdb.org/t/p/w500" + result.Results[i].PosterPath
+			}
+
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(resp.StatusCode)
+			_ = json.NewEncoder(w).Encode(result.Results)
+
 		})
 	})
 
