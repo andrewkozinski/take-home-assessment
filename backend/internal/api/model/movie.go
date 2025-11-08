@@ -9,5 +9,6 @@ type Movie struct {
 	ReleaseDate string `json:"release_date"`
 	Genres      []struct {
 		Name string `json:"name"`
+		Id   int    `json:"id"`
 	} `json:"genres"`
 }
