@@ -11,9 +11,9 @@ export default function Home() {
       <main className="flex flex-col min-h-screen w-full">
         <Navbar />
         <div className="m-auto">
-          <h1 className="lg:text-4xl md:text-3xl sm:text-2xl">Trending Movies:</h1>
+          <h1 className="lg:text-4xl md:text-3xl sm:text-2xl mb-4">Trending Movies:</h1>
           <TrendingMoviesContainer />
-          <h1 className="lg:text-4xl md:text-3xl sm:text-2xl">Your Favorites:</h1>
+          <h1 className="lg:text-4xl md:text-3xl sm:text-2xl mb-4">Your Favorites:</h1>
           <FavoriteMoviesList />
         </div>
       </main>
