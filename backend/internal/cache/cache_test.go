@@ -1,6 +1,7 @@
 package cache
 
 import (
+	"sync"
 	"testing"
 	"time"
 )
@@ -69,6 +70,42 @@ func TestCacheClear(t *testing.T) {
 	}
 	if _, ok := cache.Get("key3"); ok {
 		t.Errorf("Expected key3 to be expired")
+	}
+
+}
+
+// Test reading/writing concurrently
+func TestConcurrentReadAndWrite(t *testing.T) {
+	cache := NewCache[int, string]()
+
+	var wg sync.WaitGroup
+	numItems := 100
+
+	//Launch a goroutine to write values
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for i := 0; i < numItems; i++ {
+			cache.Set(i, "test", time.Minute)
+		}
+	}()
+
+	//Launch a goroutine to read values
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for i := 0; i < numItems; i++ {
+			_, _ = cache.Get(i)
+		}
+	}()
+
+	wg.Wait()
+
+	for i := 0; i < numItems; i++ {
+		val, ok := cache.Get(i)
+		if !ok || val != "test" {
+			t.Errorf("Expected key %d to exist", i)
+		}
 	}
 
 }
