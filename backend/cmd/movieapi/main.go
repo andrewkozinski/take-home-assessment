@@ -34,7 +34,7 @@ func main() {
 
 	//Swagger route
 	router.Get("/swagger/*", httpSwagger.Handler(
-		httpSwagger.URL("http://localhost:8080/swagger/doc.json"), // Adjust port and path as needed
+		httpSwagger.URL("/swagger/doc.json"), // Adjust port and path as needed
 	))
 
 	err := http.ListenAndServe(":8080", router)

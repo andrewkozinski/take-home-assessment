@@ -96,6 +96,14 @@ func GetMovieDetails(movieCache *cache.Cache[string, model.MovieResponse], clien
 		//Before sending the response, properly format the PosterPath (docs for reference: https://developer.themoviedb.org/docs/image-basics)
 		movieData.PosterPath = "https://image.tmdb.org/t/p/w500" + movieData.PosterPath
 
+		//Do the same for each ProductionCompany logo path
+		for i := range movieData.ProductionCompanies {
+			logoPath := movieData.ProductionCompanies[i].LogoPath
+			if logoPath != "" {
+				movieData.ProductionCompanies[i].LogoPath = "https://image.tmdb.org/t/p/w500" + logoPath
+			}
+		}
+
 		//Cache the movie data, set to expire after 10 minutes
 		movieCache.Set(id, model.MovieResponse{
 			Movie:      movieData,
@@ -113,7 +121,7 @@ func GetMovieDetails(movieCache *cache.Cache[string, model.MovieResponse], clien
 // @Description Fetch trending movies for a specified timeframe ("day" or "week")
 // @Tags Movies
 // @Produce json
-// @Param day_or_week path string true "Timeframe (day or week)"
+// @Param day_or_week path string true "Timeframe" Enums(day, week)
 // @Success 200 {array} model.Movie
 // @Failure 500 {string} string "Failed to fetch trending movies"
 // @Router /trending/movie/{day_or_week} [get]

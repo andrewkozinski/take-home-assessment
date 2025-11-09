@@ -62,8 +62,12 @@ const docTemplate = `{
                 "summary": "Get trending movies",
                 "parameters": [
                     {
+                        "enum": [
+                            "day",
+                            "week"
+                        ],
                         "type": "string",
-                        "description": "Timeframe (day or week)",
+                        "description": "Timeframe",
                         "name": "day_or_week",
                         "in": "path",
                         "required": true
@@ -98,6 +102,9 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
+                            "id": {
+                                "type": "integer"
+                            },
                             "name": {
                                 "type": "string"
                             }
