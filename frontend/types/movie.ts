@@ -12,7 +12,7 @@ export interface Movie {
     name: string;
     id: number;
     logo_path: string;
-  };
+  }[];
   runtime: number;
   popularity: number;
 }
