@@ -120,7 +120,7 @@ func GetMovieDetails(movieCache *cache.Cache[string, model.MovieResponse], clien
 	}
 }
 
-// GetTrendingMovies godoc
+// GetTrendingMovies
 // @Summary Get trending movies
 // @Description Fetch trending movies for a specified timeframe ("day" or "week")
 // @Tags Movies
