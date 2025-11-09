@@ -97,7 +97,7 @@ func GetMovieDetails(movieCache *cache.Cache[string, model.MovieResponse], clien
 		}
 
 		//Before sending the response, properly format the PosterPath (docs for reference: https://developer.themoviedb.org/docs/image-basics)
-		movieData.PosterPath = "https://image.tmdb.org/t/p/w500" + movieData.PosterPath
+		movieData.PosterPath = FormatPosterPath(movieData.PosterPath)
 
 		//Do the same for each ProductionCompany logo path
 		for i := range movieData.ProductionCompanies {
@@ -166,7 +166,7 @@ func GetTrendingMovies(trendingCache *cache.Cache[string, []model.Movie], client
 
 		//Before sending the response, properly format the PosterPath for each movie
 		for i := range result.Results {
-			result.Results[i].PosterPath = "https://image.tmdb.org/t/p/w500" + result.Results[i].PosterPath
+			result.Results[i].PosterPath = FormatPosterPath(result.Results[i].PosterPath)
 		}
 
 		//Cache the trending movies data, set to expire after 5 minutes
@@ -177,4 +177,9 @@ func GetTrendingMovies(trendingCache *cache.Cache[string, []model.Movie], client
 		w.WriteHeader(resp.StatusCode)
 		_ = json.NewEncoder(w).Encode(result.Results)
 	}
+}
+
+// FormatPosterPath properly formats the PosterPath to be an image URL that's usable by the frontend
+func FormatPosterPath(path string) string {
+	return "https://image.tmdb.org/t/p/w500" + path
 }
