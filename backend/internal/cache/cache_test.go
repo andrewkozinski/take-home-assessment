@@ -103,8 +103,11 @@ func TestConcurrentReadAndWrite(t *testing.T) {
 
 	for i := 0; i < numItems; i++ {
 		val, ok := cache.Get(i)
-		if !ok || val != "test" {
-			t.Errorf("Expected key %d to exist", i)
+		if !ok {
+			t.Errorf("Expected key %v to exist", i)
+		}
+		if val != "test" {
+			t.Errorf("Expected key %v to contain 'test', got '%v'", "test", val)
 		}
 	}
 
