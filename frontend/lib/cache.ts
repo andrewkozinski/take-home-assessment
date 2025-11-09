@@ -33,3 +33,18 @@ export function getCache(key: string) {
     }
     return item.value;
 }
+
+/**
+ * Clears the cache of a given key
+ * @param key 
+ */
+export function clearCache(key: string) {
+    localStorage.removeItem(key);
+}
+
+/**
+ * Clears all cached items
+ */
+export function clearAllCaches() {
+    localStorage.clear();
+}
