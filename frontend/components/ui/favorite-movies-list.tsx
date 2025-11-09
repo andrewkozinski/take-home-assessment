@@ -11,14 +11,25 @@ export default function FavoriteMoviesList() {
     const [movies, setMovies] = useState<Movie[]>([]);
 
     useEffect(() => {
-        const favoriteMovies = getFavoriteMovies();
 
-        //For each movie ID in favoriteMovies, fetch the movie details from TMDB API
-        const movieDetails = favoriteMovies.map(id => fetchMovieDetails(id.toString()));
+        const loadFavorites = async () => {
+            const favoriteMovies = getFavoriteMovies();
+            //For each movie ID in favoriteMovies, fetch the movie details from TMDB API
+            const movieDetails = favoriteMovies.map(id => fetchMovieDetails(id.toString()));
+            const movies = await Promise.all(movieDetails);
+            setMovies(movies);
+        }
+        loadFavorites();
 
-        Promise.all(movieDetails)
-            .then(movies => setMovies(movies))
-            .catch(error => console.error("Error fetching favorite movies: ", error));
+        //Listen for any updates to favorited
+        const handleFavoritesUpdated = () => {
+            loadFavorites();
+        }
+        window.addEventListener("favoritesUpdated", handleFavoritesUpdated);
+
+        return () => {
+            window.removeEventListener("favoritesUpdated", handleFavoritesUpdated);
+        };
 
     }, []);
 
