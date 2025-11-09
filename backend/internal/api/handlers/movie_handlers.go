@@ -54,7 +54,7 @@ func MovieHandler(router *chi.Mux, client *tmdb.TMDBClient) {
 
 }
 
-// GetMovieDetails godoc
+// GetMovieDetails
 // @Summary Get movie details
 // @Description Fetch detailed information for a movie by its TMDB ID
 // @Tags Movies
