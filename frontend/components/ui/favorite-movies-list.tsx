@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getFavoriteMovies } from "@/lib/favorites";
-import { fetchMovieDetails, splitMovies } from "@/lib/movies";
+import { fetchMovieDetails } from "@/lib/movies";
 import { Movie } from "@/types/movie";
 import MovieCarousel from "./movie-carousel";
 
