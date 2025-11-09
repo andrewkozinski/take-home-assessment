@@ -44,6 +44,8 @@ export function MovieCard({ movie }: { movie: Movie }) {
                     hover:shadow-lg transition-shadow duration-200 
                     hover:scale-[1.02] transition-transform duration-200
                     hover:cursor-pointer
+                    w-[200px]
+                    min-w-[150px]
                     "
             onClick={() => {
                 //Navigate to movie details page for specific movie
@@ -85,7 +87,7 @@ export function MovieCard({ movie }: { movie: Movie }) {
                 </button>
             </div>
             
-            <h3 className="text-sm text-center mt-2 font-medium line-clamp-2">
+            <h3 className="text-sm text-center mt-2 font-medium line-clamp-2 w-full">
                 {movie.title}
             </h3>
         </div>
