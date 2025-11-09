@@ -1,11 +1,8 @@
-/* @jest-environment jsdom */
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import TrendingMoviesList from './trending-movies-list';
 import { ApiError } from '@/types/error-message';
 import { Movie } from '@/types/movie';
 import { TimeFrame } from '@/lib/movies';
-import MoviesCarousel from './movie-carousel';
 
 // Mock the fetchTrendingMovies function
 jest.mock('@/lib/movies', () => ({
