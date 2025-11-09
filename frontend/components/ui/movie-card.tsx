@@ -16,8 +16,8 @@ export function MovieCard({ movie }: { movie: Movie }) {
                     shadow 
                     hover:shadow-lg transition-shadow duration-200 
                     hover:scale-[1.02] transition-transform duration-200
+                    hover:cursor-pointer
                     "
-            style={{ cursor: 'pointer' }}
             onClick={() => {
                 //Navigate to movie details page for specific movie
                 window.location.href = `/movie/${movie.id}`;
