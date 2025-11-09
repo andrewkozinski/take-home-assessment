@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// CacheItem is the type that will be cached in the Cache map, uses generics to allow more than just one type to be cached
+// Item is the type that will be cached in the Cache map, uses generics to allow more than just one type to be cached
 type Item[T any] struct {
 	value      T
 	expiration time.Time //Time
