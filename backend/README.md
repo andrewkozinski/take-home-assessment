@@ -14,3 +14,10 @@ The backend was built using Go. The backend directory structure was loosely base
 - Chi for API routing. Chosen for its more expressive routing. 
 - joho/godotenv for loading environment variables from a .env file.
 - swaggo/http-swagger for generating Swagger API documentation. To generate the docs, run `swag init -g ./cmd/movieapi/main.go -o ./docs` from the backend directory. When backend instance is running, found at /swagger/index.html route. For example, if on local host, [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html).
+
+### Running tests:
+There are unit tests written for tmdb_client.go and cache.go in their respective directories. To run tests for everything run the following from the backend directory:
+```
+go test -cover ./...
+```
+Make sure the API_KEY environment variable is set for tmdb_client_test.go tests. 
