@@ -29,6 +29,7 @@ export function addFavoriteMovie(movieId: number): void {
     if (!favorites.includes(movieId)) {
         favorites.push(movieId);
         localStorage.setItem('favoriteMovies', JSON.stringify(favorites));
+        window.dispatchEvent(new Event("favoritesUpdated"));
     }
 }
 
@@ -42,6 +43,7 @@ export function removeFavoriteMovie(movieId: number): void {
     if (index !== -1) {
         favorites.splice(index, 1);//remove the movie from favorites, starting at index "index", remove 1 item
         localStorage.setItem('favoriteMovies', JSON.stringify(favorites));
+        window.dispatchEvent(new Event("favoritesUpdated"));
     }
 }
 

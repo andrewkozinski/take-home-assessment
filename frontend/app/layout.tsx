@@ -19,8 +19,11 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Move List App",
+  title: "Movie List App",
   description: "Movie List App for Take Home Assessment",
+  icons: {
+    icon: "/film-icon.png",
+  },
 };
 
 export default function RootLayout({
